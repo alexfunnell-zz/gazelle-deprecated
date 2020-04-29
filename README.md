@@ -1,4 +1,4 @@
-# photomosaic
+# Photo Mosaic
 
 Creating fun photomosaics, GIFs, and murals from your family pictures using ML & similarity search.
 
@@ -40,14 +40,14 @@ Since this lookup is quite fast
    <img src="media/readme/lookup_speed.png" height="300">
 </p>
 
-you can even do this for each frame in a video and create videomosaics (see `video.py`). You can also run a battery of fun performance metrics with `performance.py` if you're really curious. 
+you can even do this for each frame in a video and create video mosaics (see `video.py`). You can also run a battery of fun performance metrics with `performance.py` if you're really curious. 
 
 ## Setup
 
 Ensure you have installed:
 
 * `Docker`
-* `XQuartz` (version 2.7.5 or higher) if you'd like to run the `interactive.py` OpenCV GUI explorer. Otherwise you don't need it.
+* `XQuartz` (version 2.7.5 or higher) if you'd like to run the `interactive.py` OpenCV GUI explorer. Otherwise, you don't need it.
 
 For `XQuartz`, [turn on the Remote setting](https://blogs.oracle.com/oraclewebcentersuite/running-gui-applications-on-native-docker-containers-for-mac), and quit and restart `XQuartz` (!).
 
@@ -59,7 +59,7 @@ Next, build the Docker images and run a container:
 # build the Docker image (may take a while!)
 sh build.sh
 
-# launch an Docker container running an iPython notebook server
+# launch a Docker container running an iPython notebook server
 sh launch.sh
 
 # then go to http://localhost:8888/
@@ -76,7 +76,7 @@ Finally, and most importantly, get together some photos and videos you'd like to
 
 ## Photomosaic Scripts
 
-Note that the default setting for all of these scripts are to use caching, which means once you've indexed a particular folder of photos at a certain scale (read: tile size), you'll never need to do it again. 
+Note that the default setting for all of these scripts is to use caching, which means once you've indexed a particular folder of photos at a certain scale (read: tile size), you'll never need to do it again. 
 
 <p align="center">
     <img src="media/readme/caching.png" height="300">
@@ -108,7 +108,7 @@ Arguments:
 * `--savepath`: where to save it. %s is the original filename and %d will be the scale
 * `--target`: the image we're trying to reconstruct from other tile images
 * `--codebook-dir`: the images we'll create tiles out of (codebook)
-* `--scale`: how large/small to make the tiles. Multipler on the aspect ratio.
+* `--scale`: how large/small to make the tiles. Multiplier on the aspect ratio.
 * `--height-aspect`: height aspect
 * `--width-aspect`: width aspect
 * `--vectorization-factor`: if we downsize the feature vector before querying (generally don't need to adjust this)
@@ -140,7 +140,7 @@ Arguments:
 
 * `--target`: the video we're trying to reconstruct from other tile images
 * `--codebook-dir`: the images we'll create tiles out of (codebook)
-* `--scale`: how large/small to make the tiles. Multipler on the aspect ratio.
+* `--scale`: how large/small to make the tiles. Multiplier on the aspect ratio.
 * `--height-aspect`: height aspect
 * `--width-aspect`: width aspect
 * `--savepath`: save our video as output to here (only tested on .mp4 extensions)
@@ -199,7 +199,7 @@ $ python make_gif.py \
     --ascending 0
 ```
 
-If you pick a large range of scales, expect to wait a half and hour or so, depending on your machine. 
+If you pick a large range of scales, expect to wait a half an hour or so, depending on your machine. 
 
 Note that the first time you run this on a container you might see a `Imageio: 'ffmpeg-linux64-v3.3.1' was not found on your computer; downloading it now.` message, that's normal.
 
@@ -211,7 +211,7 @@ Here's what I'd suggest:
 
 ```bash
 $ brew install gifsicle
-$ gifsicle -O3 --resize-height 400 --colors 256 < your/gigantic.gif  > totally/reasonable/sized.gif
+$ gifsicle -O3 --resize-height 400 --colours 256 < your/gigantic.gif  > totally/reasonable/sized.gif
 ```
 
 For example, I reduced a 130 MB GIF to 2 MB one using that command. [EZgif](https://ezgif.com) is a surprisingly good online tool for compressing GIFs with different tradeoffs, but they only support GIFs up to 100 MB in size. 
@@ -232,19 +232,19 @@ Example (at 0.05):
     <img src="media/readme/randomness.jpg" height="400">
 </p>
 
-### 2) Stabilization for Videomosaics (`--stabilization-threshold`)
+### 2) Stabilization for Video mosaics (`--stabilization-threshold`)
 
-Videomosaics are just a repeated application per frame of the photomosaic functionality. Therefore, tiny changes from frame to frame might cause the same object in the video to be represented with different tiles. This isn't terrible but it gives us less visual stability because it's always changing. 
+Video mosaics are just a repeated application per frame of the photomosaic functionality. Therefore, tiny changes from frame to frame might cause the same object in the video to be represented with different tiles. This isn't terrible but it gives us less visual stability because it's always changing. 
 
 `--stabilization-threshold` is a float which represents a fraction of the previous distance for that tile. We only replace the tile in that slot if:
 
     `current closest tile's distance` < `--stabilization-threshold` * `last frame's distance`
 
-Otherwise, we simply keep the tile the same for that frame. This is a crude stability heuristic, and in the future I could certainly do something smarter. 
+Otherwise, we simply keep the tile the same for that frame. This is a crude stability heuristic, and in the future, I could certainly do something smarter. 
 
 ### 3) Opacity (`--opacity`)
 
-Some photomosaics "cheat" a bit and just layer on a watered down version of the original image in a specified ratio along with the mosaic tiles. This is a popular enough technique I decided to include it. Simply use the `--opacity` flag:
+Some photomosaics "cheat" a bit and just layer on a watered-down version of the original image in a specified ratio along with the mosaic tiles. This is a popular enough technique I decided to include it. Simply use the `--opacity` flag:
 
 <p align="center">
     <img src="media/readme/opacity.jpg" height="400">
@@ -263,7 +263,7 @@ $ python mosaic.py \
 
 ### 4) Best-K (`--best-k`)
 
-You might notice that many of your photomosaics will have large regions of similar color and so a single image gets tiled over large portions of your image. If you'd like to throw in a little (sensible) randomness, instead of using the (`--randomness`) sledgehammer, you can use the `--best-k`. 
+You might notice that many of your photomosaics will have large regions of similar colour and so a single image gets tiled over large portions of your image. If you'd like to throw in a little (sensible) randomness, instead of using the (`--randomness`) sledgehammer, you can use the `--best-k`. 
 
 At each tile, with `--best-k`, `k` top matches will be chosen from randomly, weighted roughly inversely by distance (so "closer" images are more likely). 
 
@@ -289,7 +289,7 @@ $ python mosaic.py \
 
 I really wanted to make face montages, so even though they don't have anything to do with photomosaics, here they are! 
 
-Basically this means a GIF of a single person from different photos but all aligned on that person's face.
+Basically, this means a GIF of a single person from different photos but all aligned on that person's face.
 
 The way it works:
 
@@ -299,7 +299,7 @@ The way it works:
 
 I have included an academic dataset (the [Caltech Faces Dataset](http://www.vision.caltech.edu/html-files/archive.html)) of 450 faces in the `media/faces/other_faces` (that are unlikely to be you) as a starting point. If you make use of this for some academic reason, please do cite both them and `dlib`. 
 
-If you want good accuracy, I'd try to add at least 100 photos to both the `--target-face-dir` and the `--other-face-dir`. I added about that and as a result the `face_montage.py` script had about 1 false positive per 300 photos (easily removed before running the `create_gif_from_photos_folder.py` step).
+If you want good accuracy, I'd try to add at least 100 photos to both the `--target-face-dir` and the `--other-face-dir`. I added about that and as a result, the `face_montage.py` script had about 1 false positive per 300 photos (easily removed before running the `create_gif_from_photos_folder.py` step).
 
 Here's [a place to find many, many more pictures with random faces](https://www.kairos.com/blog/60-facial-recognition-databases). 
 
