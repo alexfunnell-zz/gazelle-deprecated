@@ -64,13 +64,13 @@ sh launch.sh
 
 # then go to http://localhost:8888/
 # there you'll be able to run scripts and view GUI 
-`"
+```
 
 If you'd like to SSH into the Docker container itself, after running the above:
 
 ```bash
 sh enter.sh
-`"
+```
 
 Finally, and most importantly, get together some photos and videos you'd like to either create images from (use as mosaic tiles) or create mosaics of (turn your pictures/videos into mosaics). I took my iPhone photos/videos for the last few years and threw them all in a folder, and you can see some of the neat results below.
 
@@ -101,8 +101,7 @@ $ python mosaic.py \
     --height-aspect 4 \
     --width-aspect 3 \
     --vectorization-factor 1
-`"
-
+```
 Arguments:
 
 * `--savepath`: where to save it. %s is the original filename and %d will be the scale
@@ -132,7 +131,7 @@ $ python video.py \
     --scale 10 \
     --height-aspect 4 \
     --width-aspect 3
-`"
+```
 
 Only use `*.mp4` for the savepath output, that's all I support for now.
 
@@ -168,7 +167,7 @@ $ python interactive.py \
     --codebook-dir "your/codebook/directory/" \
     --min-scale 1 \
     --max-scale 12
-`"
+```
 
 Arguments:
 
@@ -197,7 +196,7 @@ $ python make_gif.py \
     --max-scale 25 \
     --fps 3 \
     --ascending 0
-`"
+```
 
 If you pick a broad range of scales, expect to wait about 30min, depending on your machine. 
 
@@ -212,7 +211,7 @@ Here's what I'd suggest:
 ```bash
 $ brew install gifsicle
 $ gifsicle -O3 --resize-height 400 --colours 256 < your/gigantic.gif  > totally/reasonable/sized.gif
-`"
+```
 
 For example, I reduced a 130 MB GIF to 2 MB one using that command. [EZgif](https://ezgif.com) is a surprisingly good online tool for compressing GIFs with different tradeoffs, but they only support GIFs up to 100 MB in size. 
 
@@ -259,7 +258,7 @@ $ python mosaic.py \
     --height-aspect 4 \
     --width-aspect 3 \
     --opacity 0.4
-`"
+```
 
 ### 4) Best-K (`--best-k`)
 
@@ -283,7 +282,7 @@ $ python mosaic.py \
     --width-aspect 3 \
     --opacity 0.4 \
     --best-k 5
-`"
+```
 
 ### Face Montages
 
@@ -313,7 +312,7 @@ $ python face_montage.py \
         --output-size 800 \
         --savedir media/output/montage_will/ \
         --sort-by-photo-age
-`"
+```
 
 then to actually compile them into a GIF, use the `--savedir` from above and then run:
 
@@ -324,7 +323,7 @@ $ python create_gif_from_photos_folder.py \
         --fps 7 \
         --fuzz 3 \
         --order ascending
-`"
+```
 
 It's nice to separate these two steps since you might want to remove false positives from the folder created in the first step, remove unflattering pics, or mess around with how many frames per second you'd like in the resulting GIF. I implemented caching on the embedding, but running over a full set of photos (4,000+ for just the segment of my photos library I had the patience to run over) still can take some time.
 
@@ -347,7 +346,7 @@ The `convert` tool is also nice for making GIFs:
 ```
 $ cd your/cool/folder/with/jpg/images
 $ convert -delay 5 -layers optimize *.jpg output.gif
-`"
+```
 
 Then you may want to apply the gifsicle trick for compressing/resizing that GIF to make it be a reasonable size. 
 
@@ -357,6 +356,6 @@ There is a small (but embarrassingly incomplete) test suite that you can run wit
 
 ```bash
 sh test.sh
-`"
+```
 
 Not much coverage at the moment here. 
