@@ -28,9 +28,9 @@ We're doing the digital equivalent of a very old technique - creating mosaics:
    <img src="media/readme/fish.jpg" height="200">
 </p>
 
-except instead of using physical tiles, you can use your photo collection, emojis, or any set of digital images you'd like.
+Except instead of using concrete tiles, you can use your photo collection, emojis, or any set of digital images you'd like.
 
-Take a target image, say, a family photo. You can recreate that target image as a mosaic using a "codebook" of other images as tiles. If you intelligently search through and pick the best "codebook" image in your tileset, you can create arbitrarily good recreations of your target image. 
+Take a target image, say, a family photo. You can recreate that target image as a mosaic using a "codebook" of other images as tiles. If you intelligently search through and pick the best "codebook" image in your tileset, you can create arbitrarily excellent recreations of your target image. 
 
 This project cuts up the target image into tiles (you control the tile size with `scale` parameter), and for each tile patch, uses the L2 similarity metric (with an ultrafast lookup using Facebook's [faiss](https://github.com/facebookresearch/faiss) library) to find the closest codebook tile image to replace it with.
 
@@ -40,13 +40,13 @@ Since this lookup is quite fast
    <img src="media/readme/lookup_speed.png" height="300">
 </p>
 
-you can even do this for each frame in a video and create video mosaics (see `video.py`). You can also run a battery of fun performance metrics with `performance.py` if you're really curious. 
+You can even do this for each frame in a video and create video mosaics (see `video.py`). You can also run a battery of fun performance metrics with `performance.py` if you're really curious. 
 
 ## Setup
 
 Ensure you have installed:
 
-* `Docker`
+* `Docker.`
 * `XQuartz` (version 2.7.5 or higher) if you'd like to run the `interactive.py` OpenCV GUI explorer. Otherwise, you don't need it.
 
 For `XQuartz`, [turn on the Remote setting](https://blogs.oracle.com/oraclewebcentersuite/running-gui-applications-on-native-docker-containers-for-mac), and quit and restart `XQuartz` (!).
@@ -64,19 +64,19 @@ sh launch.sh
 
 # then go to http://localhost:8888/
 # there you'll be able to run scripts and view GUI 
-```
+`"
 
 If you'd like to SSH into the Docker container itself, after running the above:
 
 ```bash
 sh enter.sh
-```
+`"
 
-Finally, and most importantly, get together some photos and videos you'd like to either create images from (use as mosaic tiles) or create mosaics of (turn your photos/videos into mosaics). I took my iPhone photos/videos for the last few years and threw them all in a folder, and you can see some of the cool results below.
+Finally, and most importantly, get together some photos and videos you'd like to either create images from (use as mosaic tiles) or create mosaics of (turn your pictures/videos into mosaics). I took my iPhone photos/videos for the last few years and threw them all in a folder, and you can see some of the neat results below.
 
 ## Photomosaic Scripts
 
-Note that the default setting for all of these scripts is to use caching, which means once you've indexed a particular folder of photos at a certain scale (read: tile size), you'll never need to do it again. 
+Note that the default setting for all of these scripts is to use caching, which means once you've indexed a particular folder of photos at an absolute scale (read: tile size), you'll never need to do it again. 
 
 <p align="center">
     <img src="media/readme/caching.png" height="300">
@@ -86,7 +86,7 @@ If you add or delete even a single file from the folder, photomosaic is smart en
 
 ### 1) Creating mosaics from an image
 
-Reconstruct an image using a set of other images, downsized and used as tiles. 
+Reconstruct an image using a set of other photos, downsized and used as tiles. 
 
 <p align="center">
     <img src="media/readme/beach-mosaic-scale-8-small.jpg" height="300">
@@ -101,7 +101,7 @@ $ python mosaic.py \
     --height-aspect 4 \
     --width-aspect 3 \
     --vectorization-factor 1
-```
+`"
 
 Arguments:
 
@@ -132,7 +132,7 @@ $ python video.py \
     --scale 10 \
     --height-aspect 4 \
     --width-aspect 3
-```
+`"
 
 Only use `*.mp4` for the savepath output, that's all I support for now.
 
@@ -145,7 +145,7 @@ Arguments:
 * `--width-aspect`: width aspect
 * `--savepath`: save our video as output to here (only tested on .mp4 extensions)
 
-`ffmpeg` is used for the audio splicing, since OpenCV can't really handle that. 
+`FFmpeg` is used for the audio splicing, since OpenCV can't really handle that. 
 
 You can adjust aspect ratio here too, but those and more are optional arguments.  
 
@@ -153,7 +153,7 @@ You can adjust aspect ratio here too, but those and more are optional arguments.
 
 Not sure which scale will look best? Want to play around with some different settings? Run this. 
 
-Then just press the `s` key and you'll save the selected scale to disk!
+Then just press the's` key, and you'll save the selected scale to disk!
 
 Alternatively, press `ESC` to exit the window without saving. 
 
@@ -168,7 +168,7 @@ $ python interactive.py \
     --codebook-dir "your/codebook/directory/" \
     --min-scale 1 \
     --max-scale 12
-```
+`"
 
 Arguments:
 
@@ -182,7 +182,7 @@ You can adjust aspect ratio here too, but those and more are optional arguments.
 
 ### 4) Create a GIF from a series of mosaics at varying tile scales
 
-This will create a series of mosaics for a range of scales and then combined them together as a GIF with a specified frames per second. You can adjust the order with `--ascending`. 
+This will create a series of mosaics for a range of scales and then combined them together as a GIF with specified frames per second. You can adjust the order with `--ascending`. 
 
 <p align="center">
     <img src="media/readme/small.gif">
@@ -197,11 +197,11 @@ $ python make_gif.py \
     --max-scale 25 \
     --fps 3 \
     --ascending 0
-```
+`"
 
-If you pick a large range of scales, expect to wait a half an hour or so, depending on your machine. 
+If you pick a broad range of scales, expect to wait about 30min, depending on your machine. 
 
-Note that the first time you run this on a container you might see a `Imageio: 'ffmpeg-linux64-v3.3.1' was not found on your computer; downloading it now.` message, that's normal.
+Note that the first time you run this on a container, you might see an `Imageio: 'ffmpeg-linux64-v3.3.1' was not found on your computer; downloading it now.` message, that's normal.
 
 #### Optimizing GIF file size
 
@@ -212,7 +212,7 @@ Here's what I'd suggest:
 ```bash
 $ brew install gifsicle
 $ gifsicle -O3 --resize-height 400 --colours 256 < your/gigantic.gif  > totally/reasonable/sized.gif
-```
+`"
 
 For example, I reduced a 130 MB GIF to 2 MB one using that command. [EZgif](https://ezgif.com) is a surprisingly good online tool for compressing GIFs with different tradeoffs, but they only support GIFs up to 100 MB in size. 
 
@@ -234,7 +234,7 @@ Example (at 0.05):
 
 ### 2) Stabilization for Video mosaics (`--stabilization-threshold`)
 
-Video mosaics are just a repeated application per frame of the photomosaic functionality. Therefore, tiny changes from frame to frame might cause the same object in the video to be represented with different tiles. This isn't terrible but it gives us less visual stability because it's always changing. 
+Video mosaics are just a repeated application per frame of the photomosaic functionality. Therefore, tiny changes from frame to frame might cause the same object in the video to be represented with different tiles. This isn't terrible, but it gives us less visual stability because it's always changing. 
 
 `--stabilization-threshold` is a float which represents a fraction of the previous distance for that tile. We only replace the tile in that slot if:
 
@@ -259,7 +259,7 @@ $ python mosaic.py \
     --height-aspect 4 \
     --width-aspect 3 \
     --opacity 0.4
-```
+`"
 
 ### 4) Best-K (`--best-k`)
 
@@ -283,7 +283,7 @@ $ python mosaic.py \
     --width-aspect 3 \
     --opacity 0.4 \
     --best-k 5
-```
+`"
 
 ### Face Montages
 
@@ -294,12 +294,12 @@ Basically, this means a GIF of a single person from different photos but all ali
 The way it works:
 
 1. Put together a folder of photos (`--target-face-dir`) with ONLY the face you want in the montage (yourself, for example). Selfies are great for this. 
-1. Put together a folder of photos with ANYONE ELSE's face in them (`--other-face-dir`). The more the better. Just don't have your face in them. If you're really short on them / have a lot of group photos, crop yourself out. 
+1. Put together a folder of photos with ANYONE ELSE's face in them (`--other-face-dir`). The more, the better. Just don't have your face in them. If you're really short on them / have a lot of group photos, crop yourself out. 
 1. Put together a directory of photos you'd like to draw from to make the montage (`--photos-dir`). 
 
 I have included an academic dataset (the [Caltech Faces Dataset](http://www.vision.caltech.edu/html-files/archive.html)) of 450 faces in the `media/faces/other_faces` (that are unlikely to be you) as a starting point. If you make use of this for some academic reason, please do cite both them and `dlib`. 
 
-If you want good accuracy, I'd try to add at least 100 photos to both the `--target-face-dir` and the `--other-face-dir`. I added about that and as a result, the `face_montage.py` script had about 1 false positive per 300 photos (easily removed before running the `create_gif_from_photos_folder.py` step).
+If you want good accuracy, I'd try to add at least 100 photos to both the `--target-face-dir` and the `--other-face-dir`. I spoke about that, and as a result, the `face_montage.py` script had about 1 false positive per 300 photos (easily removed before running the `create_gif_from_photos_folder.py` step).
 
 Here's [a place to find many, many more pictures with random faces](https://www.kairos.com/blog/60-facial-recognition-databases). 
 
@@ -313,7 +313,7 @@ $ python face_montage.py \
         --output-size 800 \
         --savedir media/output/montage_will/ \
         --sort-by-photo-age
-```
+`"
 
 then to actually compile them into a GIF, use the `--savedir` from above and then run:
 
@@ -324,15 +324,15 @@ $ python create_gif_from_photos_folder.py \
         --fps 7 \
         --fuzz 3 \
         --order ascending
-```
+`"
 
 It's nice to separate these two steps since you might want to remove false positives from the folder created in the first step, remove unflattering pics, or mess around with how many frames per second you'd like in the resulting GIF. I implemented caching on the embedding, but running over a full set of photos (4,000+ for just the segment of my photos library I had the patience to run over) still can take some time.
 
 ### Using `ffprobe` / `ffmpeg`
 
-A few of the routines in this project make use of parameters from the video/audio files. I often call the command line utilities directly by spinning up a separate process, which is a little icky, but gets the job done.
+A few of the routines in this project make use of parameters from the video/audio files. I often call the command line utilities directly by spinning up a separate process, which is a little icky but gets the job done.
 
-FFProbe is an excellent tool for this, and the command line interface is quite powerful. I recommend [this guide](https://trac.ffmpeg.org/wiki/FFprobeTips) for getting the handle on it. 
+FFProbe is an excellent tool for this, and the command-line interface is quite powerful. I recommend [this guide](https://trac.ffmpeg.org/wiki/FFprobeTips) for getting the handle on it. 
 
 Similarly, `ffmpeg` makes splicing audio/video streams and recombining them easy. A few good resources for `ffmpeg` specifically:
 
@@ -347,9 +347,9 @@ The `convert` tool is also nice for making GIFs:
 ```
 $ cd your/cool/folder/with/jpg/images
 $ convert -delay 5 -layers optimize *.jpg output.gif
-```
+`"
 
-then you may want to apply the gifsicle trick for compressing/resizing that GIF to make it be a reasonable size. 
+Then you may want to apply the gifsicle trick for compressing/resizing that GIF to make it be a reasonable size. 
 
 ### Unit tests
 
@@ -357,6 +357,6 @@ There is a small (but embarrassingly incomplete) test suite that you can run wit
 
 ```bash
 sh test.sh
-```
+`"
 
-Not much coverage at the moment. 
+Not much coverage at the moment here. 
